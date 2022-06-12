@@ -1,4 +1,7 @@
-# HTEM DB API Example Notebooks
+# Fork of HTEM API:
+## This is a fork of HTEM library functions. The code was originally written for Python2. We have adapted the library functions for Python3. 
+
+## HTEM DB API Example Notebooks
 
 This GitHub repository is created for use on the NREL High-Throughput Experimental Materials Database (https://htem.nrel.gov/) API. While the website offers a number of visualization tools for various types of materials tests, an advanced user may desire a more hands-on approach. This repository offers a number of Jupyter notebooks that interact directly with the API in order to demonstrate API functionality and more advanced statistical analysis and graphical visualization. The Jupyter notebooks allow one to read and digest blocks of code while learning more about how various statistical techniques may be applied to this dataset. This repository is currently broken into several Python files and then five Jupyter Notebooks. They are:
 
