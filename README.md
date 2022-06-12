@@ -1,5 +1,5 @@
 # Fork of HTEM API:
-## This is a fork of HTEM library functions. The code was originally written for Python2. We have adapted the library functions for Python3. 
+This is a fork of HTEM library functions. The code was originally written for Python2. We have adapted the library functions for Python3. 
 
 ## HTEM DB API Example Notebooks
 
