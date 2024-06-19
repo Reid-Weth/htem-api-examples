@@ -29,7 +29,7 @@ class Library:
         elt_url = 'https://htem-api.nrel.gov/api/sample_library?element='
         for i in only:
             elt_url = elt_url+str(i)+','
-        response = urllib.urlopen(elt_url)
+        response = urllib.request.urlopen(elt_url)
         data = json.loads(response.read())
         ids_list = []
         for i in data:
@@ -54,7 +54,7 @@ class Library:
             
     def properties(self):
         url = 'https://htem-api.nrel.gov/api/sample_library/'+str(self.identity)
-        response = urllib.urlopen(url)
+        response = urllib.request.urlopen(url)
         data = json.loads(response.read())
         df = pd.DataFrame()
         for i in data:
@@ -63,7 +63,7 @@ class Library:
 
     def spectra(self,which):
         url = 'https://htem-api.nrel.gov/api/sample_library/'+str(self.identity)
-        response = urllib.urlopen(url)
+        response = urllib.request.urlopen(url)
         data = json.loads(response.read())
         positions = data['sample_ids']
         df = pd.DataFrame()

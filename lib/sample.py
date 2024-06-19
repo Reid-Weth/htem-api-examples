@@ -26,7 +26,7 @@ class Sample:
 
     def properties(self):
         url = 'https://htem-api.nrel.gov/api/sample/'+str(self.identity)
-        response = urllib.urlopen(url)
+        response = urllib.request.urlopen(url)
         data = json.loads(response.read())
         df = pd.DataFrame()
         for i in data:
@@ -37,7 +37,7 @@ class Sample:
         url = 'https://htem-api.nrel.gov/api/sample/'+str(self.identity)
         #There is the potential to replace this with mvl_optical or mvl_xrd, 
         #but these seem to be broken at the moment...
-        response = urllib.urlopen(url)
+        response = urllib.request.urlopen(url)
         data = json.loads(response.read())
         df = pd.DataFrame()
         if which == 'xrd':
