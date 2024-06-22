@@ -28,10 +28,17 @@ class Library:
     def search_by_composition(only=[],not_including=[],any_of=[]):
         elt_url = 'https://htem-api.nrel.gov/api/sample_library?element='
         for i in only:
-            elt_url = elt_url+str(i)+','
-        response = urllib.request.urlopen(elt_url)
-        data = json.loads(response.read())
+            if i == only[-1]:
+                elt_url = elt_url+str(i)
+            else:
+                elt_url = elt_url+str(i)+','
+        #print(elt_url)
+        with urllib.request.urlopen(elt_url) as response:
+            data = json.load(response)
+            #print(data)
         ids_list = []
+        
+        #print(json.loads(response.read()))
         for i in data:
             elts = str(i['elements'])
             violated = False
@@ -42,11 +49,15 @@ class Library:
             for k in only:
                 if k in elts:
                     l = l+1
+            #print('L is ' + str(l))
+            #print('Only is ' + str(len(only)))
             if l == len(only) and violated == False:
                 ids_list.append(i['id'])
+                #print(violated)
             else:
                 pass
         obj_list = []
+        #print(ids_list)
         for i in ids_list:
             obj_list.append(Library(i))
         return obj_list
@@ -54,8 +65,12 @@ class Library:
             
     def properties(self):
         url = 'https://htem-api.nrel.gov/api/sample_library/'+str(self.identity)
-        response = urllib.request.urlopen(url)
-        data = json.loads(response.read())
+        
+        with urllib.request.urlopen(url) as response:
+            data = json.load(response)
+        #response = urllib.request.urlopen(url)
+        #data = json.loads(response.read())
+        
         df = pd.DataFrame()
         for i in data:
             df[i] = [data[i]]
@@ -63,16 +78,22 @@ class Library:
 
     def spectra(self,which):
         url = 'https://htem-api.nrel.gov/api/sample_library/'+str(self.identity)
-        response = urllib.request.urlopen(url)
-        data = json.loads(response.read())
+        
+        with urllib.request.urlopen(url) as response:
+            data = json.load(response)
+        #response = urllib.request.urlopen(url)
+        #data = json.loads(response.read())
+        
         positions = data['sample_ids']
         df = pd.DataFrame()
         for k in positions:
             url = 'https://htem-api.nrel.gov/api/sample/'+str(k)
             #There is the potential to replace this with mvl_optical or mvl_xrd, 
             #but these seem to be broken at the moment...
-            response = urllib.urlopen(url)
-            data = json.loads(response.read())
+            with urllib.request.urlopen(url) as response:
+                data = json.load(response)
+            #response = urllib.urlopen(url)
+            #data = json.loads(response.read())
             leveled_position = data['position']
             if which == 'xrd':
                 df['xrd_angle_'+str(leveled_position)] = data['xrd_angle']
